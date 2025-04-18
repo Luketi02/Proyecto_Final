@@ -1,2 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-/Prjct.Fnl.ASC
+# Django stuff:
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+local_settings.py
+
+# Postgres (si usás dumps)
+*.pgsql
+*.sql
+
+# Environments
+.env
+.venv/
+venv/
+ENV/
+env.bak/
+env/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# React / Node
+frontend/node_modules/
+frontend/build/
+frontend/.env
+frontend/.DS_Store
+frontend/package-lock.json
+
+# GitHub
+*.orig
+*.rej
