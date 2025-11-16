@@ -19,9 +19,31 @@ from django.urls import path
 from django.contrib import admin
 from django.urls import path, include
 from django.http import HttpResponse  
+from django.urls import path
+from django.urls import path
+from django.views.generic import TemplateView
+from django.contrib import admin
+from django.urls import path
+from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('api_test.urls')), 
-    path('', lambda request: HttpResponse("Hola desde la raíz!")),  
+    path('', TemplateView.as_view(template_name='index.html')), 
 ]
+
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    # Añade esta línea
+    path('api/v1/usuarios/', include('usuarios.urls')), 
+    # (Usar 'api/v1/' es una buena práctica para versionar tu API)
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static('/', document_root=settings.FRONTEND_DIR)
