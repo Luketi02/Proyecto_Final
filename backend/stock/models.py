@@ -31,7 +31,7 @@ class Producto(models.Model):
     categoria = models.CharField(max_length=50, choices=CATEGORIAS)
     # Estado: Activo, discontinuado, etc.
     estado = models.BooleanField(default=True) 
-    imagen = models.URLField(max_length=255, null=True, blank=True)
+    imagen = models.ImageField(upload_to='productos/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.nombre} (${self.precioVenta})"
@@ -65,16 +65,13 @@ class OrdenCompra(models.Model):
     # Una orden va dirigida a un proveedor principal (o puede ser varios, según tu lógica, 
     # pero lo estándar es una orden por proveedor. Aquí lo simplificamos a uno por orden).
     proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True, related_name='ordenes')
-    
     fechaEmision = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=20, choices=ESTADOS_ORDEN, default='PENDIENTE')
-    
     # "solTec": Si fue solicitada por un técnico (limita edición) - Doc Pág 96
     solTec = models.BooleanField(default=False) 
-    
     # Comentarios o presupuesto adjunto (URL o texto)
     comentarios = models.TextField(blank=True, null=True)
-    presupuestoAdjunto = models.URLField(max_length=255, blank=True, null=True)
+    presupuestoAdjunto = models.FileField(upload_to='presupuestos/', blank=True, null=True)
 
     def __str__(self):
         return f"Orden #{self.idOrden} - {self.proveedor} ({self.estado})"

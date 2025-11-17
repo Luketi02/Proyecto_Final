@@ -41,7 +41,7 @@ class Rol(models.Model):
 # -------------------------------
 class Usuario(AbstractBaseUser, PermissionsMixin):
     idUsuario = models.AutoField(primary_key=True)
-    fotoPerfil = models.URLField(max_length=255, blank=True, null=True)
+    fotoPerfil = models.ImageField(upload_to='usuarios/', blank=True, null=True)
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
