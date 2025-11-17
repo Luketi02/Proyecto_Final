@@ -36,6 +36,10 @@ from reparaciones.views import DispositivoViewSet, DiagnosticoViewSet, Reparacio
 from usuarios.views import UsuarioViewSet, RolViewSet
 from stock.views import ProveedorViewSet, ProductoViewSet, StockViewSet, OrdenCompraViewSet, DetalleOrdenViewSet
 from ventas.views import VentaViewSet, DetalleVentaViewSet, PagoViewSet
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -61,8 +65,13 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/api/v1/', permanent=False)),
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static('/', document_root=settings.FRONTEND_DIR)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

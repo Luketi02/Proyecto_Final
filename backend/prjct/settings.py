@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'reparaciones',
     'stock',
     'ventas',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,22 @@ STATICFILES_DIRS = [
 ]
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # La "pulsera" dura 1 hora
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Podés renovarla por 1 día
+    'USER_ID_FIELD': 'idUsuario',
+}
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
