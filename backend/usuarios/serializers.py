@@ -5,7 +5,7 @@ from .models import Usuario, Rol
 class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
-        fields = '__all__' # Incluye todos los campos (id, nombre, descripcion)
+        fields = ['idRol', 'nombreRol', 'descripcion']
 
 # ---  Serializador de Usuario ---
 class UsuarioSerializer(serializers.ModelSerializer):
@@ -45,7 +45,6 @@ class UsuarioSerializer(serializers.ModelSerializer):
         return usuario
 
     def update(self, instance, validated_data):
-        # --- ¡CAMBIO AQUÍ! ---
         password = validated_data.pop('password', None)
         
         usuario = super().update(instance, validated_data)

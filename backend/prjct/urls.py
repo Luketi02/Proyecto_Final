@@ -29,19 +29,26 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
+from rest_framework.routers import DefaultRouter
+#Imports de apps
+from reparaciones.views import DispositivoViewSet
+from usuarios.views import UsuarioViewSet, RolViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html')), 
 ]
 
-
+router = DefaultRouter()
+router.register(r'usuarios', UsuarioViewSet, basename='usuario')
+router.register(r'roles', RolViewSet, basename='rol')
+router.register(r'dispositivos', DispositivoViewSet, basename='dispositivo')
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='/api/v1/', permanent=False)),
     path('admin/', admin.site.urls),
-    # Añade esta línea
-    path('api/v1/usuarios/', include('usuarios.urls')), 
-    # (Usar 'api/v1/' es una buena práctica para versionar tu API)
+    path('api/v1/', include(router.urls)),
 ]
 
 if settings.DEBUG:
