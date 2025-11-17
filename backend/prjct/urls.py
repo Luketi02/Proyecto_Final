@@ -32,7 +32,7 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 from rest_framework.routers import DefaultRouter
 #Imports de apps
-from reparaciones.views import DispositivoViewSet
+from reparaciones.views import DispositivoViewSet, DiagnosticoViewSet, ReparacionViewSet
 from usuarios.views import UsuarioViewSet, RolViewSet
 
 urlpatterns = [
@@ -44,6 +44,8 @@ router = DefaultRouter()
 router.register(r'usuarios', UsuarioViewSet, basename='usuario')
 router.register(r'roles', RolViewSet, basename='rol')
 router.register(r'dispositivos', DispositivoViewSet, basename='dispositivo')
+router.register(r'diagnosticos', DiagnosticoViewSet, basename='diagnostico')
+router.register(r'reparaciones', ReparacionViewSet, basename='reparacion')
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/api/v1/', permanent=False)),
